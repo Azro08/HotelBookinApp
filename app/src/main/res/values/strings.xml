@@ -10,4 +10,14 @@
     <string name="login_underline"><u>Login</u></string>
     <string name="signup">Signup</string>
     <string name="re_password">Re- Password</string>
+    <string name="home">Home</string>
+    <string name="history">History</string>
+    <string name="favorite">Favorite</string>
+    <string name="profile">Profile</string>
+    <string name="find_your_hotel">Find your Hotel</string>
+    <string name="location">Location</string>
+    <string name="ex_minsk">ex: Minsk</string>
+    <string name="go">Go</string>
+    <string name="logout">Logout</string>
+    <string name="error">Error!</string>
 </resources>

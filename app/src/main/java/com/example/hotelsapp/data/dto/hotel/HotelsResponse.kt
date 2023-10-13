@@ -1,4 +1,4 @@
-package com.example.hotelsapp.data.dto
+package com.example.hotelsapp.data.dto.hotel
 
 
 import com.google.gson.annotations.SerializedName

@@ -1,7 +1,7 @@
 package com.example.hotelsapp.data.repository
 
 import com.example.hotelsapp.data.api.LocationGeoIdApi
-import com.example.hotelsapp.data.dto.GeoIdData
+import com.example.hotelsapp.data.dto.geo_id.GeoIdData
 import com.example.hotelsapp.domain.repository.GeoIdRepository
 import javax.inject.Inject
 

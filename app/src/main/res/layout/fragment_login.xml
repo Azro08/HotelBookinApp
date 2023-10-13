@@ -32,6 +32,7 @@
         android:hint="@string/email"
         android:layout_margin="20dp"
         android:padding="5dp"
+        android:textColor="@color/black"
         android:inputType="textEmailAddress"
         android:background="@drawable/edit_text_background"
         android:importantForAutofill="no" />
@@ -42,6 +43,7 @@
         android:layout_height="45dp"
         android:hint="@string/password"
         android:layout_margin="20dp"
+        android:textColor="@color/black"
         android:padding="5dp"
         android:inputType="textPassword"
         android:background="@drawable/edit_text_background"

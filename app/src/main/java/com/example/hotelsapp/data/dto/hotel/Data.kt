@@ -1,11 +1,11 @@
-package com.example.hotelsapp.data.dto
+package com.example.hotelsapp.data.dto.hotel
 
 
 import com.google.gson.annotations.SerializedName
 
 data class Data(
     @SerializedName("data")
-    val `data`: List<DataX>,
+    val hotelData: List<HotelData>,
     @SerializedName("sortDisclaimer")
     val sortDisclaimer: String,
     @SerializedName("textGroupStandard")

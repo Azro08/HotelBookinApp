@@ -1,19 +1,15 @@
-package com.example.hotelsapp.data.dto
+package com.example.hotelsapp.data.dto.hotel
 
 
 import com.google.gson.annotations.SerializedName
 
-data class DataX(
+data class HotelData(
     @SerializedName("accentedLabel")
     val accentedLabel: Boolean,
-    @SerializedName("badge")
-    val badge: Badge?,
     @SerializedName("bubbleRating")
     val bubbleRating: BubbleRating,
     @SerializedName("cardPhotos")
     val cardPhotos: List<CardPhoto>,
-    @SerializedName("commerceInfo")
-    val commerceInfo: CommerceInfo?,
     @SerializedName("id")
     val id: String,
     @SerializedName("isSponsored")

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.hotelsapp.R
 import com.example.hotelsapp.databinding.FragmentLoginBinding
+import com.example.hotelsapp.helper.AuthManager
 import com.example.hotelsapp.presentation.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +22,9 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
+
+    @Inject
+    lateinit var authManager: AuthManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +50,7 @@ class LoginFragment : Fragment() {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {task ->
                 if (task.isSuccessful){
+                    authManager.saveUer(email)
                     Toast.makeText(
                         requireContext(),
                         "Logged in",
