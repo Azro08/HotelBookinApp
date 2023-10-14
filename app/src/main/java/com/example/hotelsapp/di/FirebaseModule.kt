@@ -1,6 +1,7 @@
 package com.example.hotelsapp.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +14,12 @@ import javax.inject.Singleton
 object FirebaseModule {
     @Provides
     @Singleton
-    fun provideFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
-    }
+    fun provideFirebaseAuth(): FirebaseAuth =
+        FirebaseAuth.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideFireStore(): FirebaseFirestore =
+        FirebaseFirestore.getInstance()
+
 }

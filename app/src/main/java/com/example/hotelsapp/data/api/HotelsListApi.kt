@@ -6,7 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface HotelsListApi {
-
     @GET("hotels/search")
     suspend fun getHotelsList(
         @Query("region_id") regionId: String,

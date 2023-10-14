@@ -20,4 +20,8 @@
     <string name="go">Go</string>
     <string name="logout">Logout</string>
     <string name="error">Error!</string>
+    <string name="favorites">Favorites</string>
+    <string name="no_favorite_hotels">No favorite hotels</string>
+    <string name="from">from</string>
+    <string name="to">to</string>
 </resources>

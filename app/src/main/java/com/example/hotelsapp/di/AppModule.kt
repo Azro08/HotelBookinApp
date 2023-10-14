@@ -3,12 +3,16 @@ package com.example.hotelsapp.di
 import android.content.Context
 import com.example.hotelsapp.data.api.HotelsListApi
 import com.example.hotelsapp.data.api.LocationGeoIdApi
-import com.example.hotelsapp.data.repository.GeoIdRepositoryImpl
+import com.example.hotelsapp.data.repository.FavoriteHotelsRepositoryImpl
+import com.example.hotelsapp.data.repository.RegionIdRepositoryImpl
 import com.example.hotelsapp.data.repository.HotelsListRepositoryImpl
-import com.example.hotelsapp.domain.repository.GeoIdRepository
+import com.example.hotelsapp.domain.repository.FavoriteHotelsRepository
+import com.example.hotelsapp.domain.repository.RegionIdRepository
 import com.example.hotelsapp.domain.repository.HotelsListRepository
 import com.example.hotelsapp.helper.AuthManager
 import com.example.hotelsapp.helper.Constants
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,11 +52,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGeoIdRepository(api: LocationGeoIdApi): GeoIdRepository =
-        GeoIdRepositoryImpl(api)
+    fun provideGeoIdRepository(api: LocationGeoIdApi): RegionIdRepository =
+        RegionIdRepositoryImpl(api)
 
     @Provides
     @Singleton
     fun provideAuthManager(@ApplicationContext context: Context): AuthManager =
         AuthManager(context)
+
+    @Provides
+    @Singleton
+    fun provideFavoriteHotelsRepository(
+        firestore: FirebaseFirestore,
+        firebaseAuth: FirebaseAuth
+    ): FavoriteHotelsRepository =
+        FavoriteHotelsRepositoryImpl(firestore, firebaseAuth)
+
 }
