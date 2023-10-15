@@ -91,7 +91,7 @@ class HotelsFragment : Fragment() {
     }
 
     private fun displayHotels(hotelData: List<Property>) {
-        rvAdapter = HotelsRvAdapter(hotelData, { navToDetails(it.id) }, { addHotelToFav(it) })
+        rvAdapter = HotelsRvAdapter(hotelData, { navToDetails(it.id, it.reviews.score) }, { addHotelToFav(it) })
         binding.recyclerViewHotels.setHasFixedSize(true)
         binding.recyclerViewHotels.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewHotels.adapter = rvAdapter
@@ -118,10 +118,10 @@ class HotelsFragment : Fragment() {
         viewModel.addHotelToFavorite(hotel)
     }
 
-    private fun navToDetails(id: String) {
+    private fun navToDetails(id: String, score: Double) {
         findNavController().navigate(
             R.id.nav_hotel_to_details,
-            bundleOf(Pair(Constants.HOTEL_ID_KEY, id))
+            bundleOf(Pair(Constants.HOTEL_ID_KEY, id), Pair(Constants.SCORE_KEY, score))
         )
     }
 

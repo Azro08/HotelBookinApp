@@ -44,7 +44,16 @@
     </fragment>
     <fragment
         android:id="@+id/nav_fav_to_details"
-        android:name="com.example.hotelsapp.presentation.hotels.HotelDetailsFragment"
+        android:name="com.example.hotelsapp.presentation.hotel_details.HotelDetailsFragment"
         android:label="fragment_hotel_details"
-        tools:layout="@layout/fragment_hotel_details" />
+        tools:layout="@layout/fragment_hotel_details" >
+        <action
+            android:id="@+id/nav_details_to_book"
+            app:destination="@id/bookingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.example.hotelsapp.presentation.booking.BookingFragment"
+        android:label="fragment_booking"
+        tools:layout="@layout/fragment_booking" />
 </navigation>

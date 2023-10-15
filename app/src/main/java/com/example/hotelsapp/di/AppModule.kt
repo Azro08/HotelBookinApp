@@ -1,14 +1,19 @@
 package com.example.hotelsapp.di
 
 import android.content.Context
+import com.example.hotelsapp.data.api.HotelDetailsApi
 import com.example.hotelsapp.data.api.HotelsListApi
 import com.example.hotelsapp.data.api.LocationGeoIdApi
+import com.example.hotelsapp.data.repository.BookingRepositoryImpl
 import com.example.hotelsapp.data.repository.FavoriteHotelsRepositoryImpl
-import com.example.hotelsapp.data.repository.RegionIdRepositoryImpl
+import com.example.hotelsapp.data.repository.HotelDetailsRepositoryImpl
 import com.example.hotelsapp.data.repository.HotelsListRepositoryImpl
+import com.example.hotelsapp.data.repository.RegionIdRepositoryImpl
+import com.example.hotelsapp.domain.repository.BookingRepository
 import com.example.hotelsapp.domain.repository.FavoriteHotelsRepository
-import com.example.hotelsapp.domain.repository.RegionIdRepository
+import com.example.hotelsapp.domain.repository.HotelDetailsRepository
 import com.example.hotelsapp.domain.repository.HotelsListRepository
+import com.example.hotelsapp.domain.repository.RegionIdRepository
 import com.example.hotelsapp.helper.AuthManager
 import com.example.hotelsapp.helper.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -47,8 +52,30 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideHotelDetailsApi(): HotelDetailsApi =
+        Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(HotelDetailsApi::class.java)
+
+    @Provides
+    @Singleton
     fun provideHotelsListRepository(api: HotelsListApi): HotelsListRepository =
         HotelsListRepositoryImpl(api)
+
+    @Singleton
+    @Provides
+    fun provideHotelDetailsRepository(api: HotelDetailsApi): HotelDetailsRepository =
+        HotelDetailsRepositoryImpl(api)
+
+    @Singleton
+    @Provides
+    fun provideBookingRepository(
+        firestore: FirebaseFirestore,
+        firebaseAuth: FirebaseAuth
+    ) : BookingRepository =
+        BookingRepositoryImpl(firestore, firebaseAuth)
 
     @Provides
     @Singleton

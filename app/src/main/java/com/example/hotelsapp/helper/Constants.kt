@@ -9,5 +9,8 @@ object Constants {
     const val CHECK_IN_DATE_KEY = "checkInKey"
     const val CHECK_OUT_DATE_KEY = "checkOutDate"
     const val HOTEL_ID_KEY = "hotelId"
+    const val SCORE_KEY = "hotelScore"
+    const val HOTEL_NAME_KEY = "hotelName"
     const val FAVORITE_HOTELS = "favorite_hotels"
+    const val BOOKING = "booking"
 }

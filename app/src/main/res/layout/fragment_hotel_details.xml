@@ -3,12 +3,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.hotels.HotelDetailsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.hotel_details.HotelDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/loadingDetailsGif"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:background="@drawable/loading_gif"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layoutDetailsContainer"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|top"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <!-- Hotel Images (ViewPager) -->
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPagerHotelImages"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <!-- Hotel Name -->
+            <TextView
+                android:id="@+id/textHotelName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Hotel Name"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+            <!-- Address -->
+            <TextView
+                android:id="@+id/textAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Hotel Address"
+                android:layout_marginTop="8dp" />
+
+            <!-- Hotel Details -->
+            <TextView
+                android:id="@+id/textHotelDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Hotel Details"
+                android:layout_marginTop="8dp" />
+
+            <!-- Phone Number -->
+            <TextView
+                android:id="@+id/textPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Phone Number"
+                android:layout_marginTop="8dp" />
+
+            <!-- Tagline -->
+            <TextView
+                android:id="@+id/textTagline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Tagline"
+                android:layout_marginTop="8dp" />
+
+            <!-- Review -->
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                tools:rating="4.5"
+                android:layout_marginTop="8dp" />
+
+            <!-- What's Around -->
+            <TextView
+                android:id="@+id/textWhatsAround"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/what_s_around"
+                android:layout_marginTop="8dp" />
+
+            <!-- Book Now Button -->
+            <Button
+                android:id="@+id/buttonBookNow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/book_now"
+                android:layout_marginTop="26dp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </FrameLayout>

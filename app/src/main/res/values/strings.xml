@@ -24,4 +24,19 @@
     <string name="no_favorite_hotels">No favorite hotels</string>
     <string name="from">from</string>
     <string name="to">to</string>
+    <string name="what_s_around">What\'s Around</string>
+    <string name="book_now">Book Now</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="adults_num">Adults num</string>
+    <string name="children_num">Children num</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="check_in_date">Check-In Date</string>
+    <string name="check_out_date">Check-Out Date</string>
+    <string name="cash">Cash</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="card_number">Card Number</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="cvv">CVV</string>
+    <string name="finish">finish</string>
 </resources>
