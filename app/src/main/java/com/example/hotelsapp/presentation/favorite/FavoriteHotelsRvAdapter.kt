@@ -34,6 +34,7 @@ class FavoriteHotelsRvAdapter(
             else binding.textViewPrice.text = price
             if (curHotel.neighborhood != null) binding.textViewNeighborhood.text =
                 curHotel.neighborhood
+            hotel = curHotel
         }
 
         init {

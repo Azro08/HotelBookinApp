@@ -108,7 +108,7 @@ class HotelsFragment : Fragment() {
 
     private fun displayHotels(hotelData: List<Property>) {
         rvAdapter = HotelsRvAdapter(hotelData, { navToDetails(it.id, it.reviews.score) }, { addHotelToFav(it) })
-        binding.recyclerViewHotels.setHasFixedSize(true)
+        binding.recyclerViewHotels.setHasFixedSize(false)
         binding.recyclerViewHotels.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewHotels.adapter = rvAdapter
     }
@@ -120,7 +120,7 @@ class HotelsFragment : Fragment() {
         val reviews = property.reviews.score
         val name = property.name
         val price = property.price.displayMessages[0].lineItems[0].price!!.priceTag
-        val neighborhood = property.neighborhood.name
+        val neighborhood = property.neighborhood?.name
         val hotel = SingleHotelItem(
             id = hotelId,
             userId = userId,

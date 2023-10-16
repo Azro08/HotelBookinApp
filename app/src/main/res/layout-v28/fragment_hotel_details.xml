@@ -94,8 +94,8 @@
             <RatingBar
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
+                android:outlineAmbientShadowColor="@color/yellow"
                 android:layout_height="wrap_content"
-                android:progressTint="@color/black"
                 android:numStars="5"
                 tools:rating="4"
                 android:clickable="false"
@@ -106,6 +106,7 @@
                 android:id="@+id/textWhatsAround"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 tools:text="@string/what_s_around"
                 android:layout_marginTop="8dp" />
 

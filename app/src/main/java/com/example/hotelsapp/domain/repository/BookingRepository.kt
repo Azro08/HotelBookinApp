@@ -8,4 +8,6 @@ interface BookingRepository {
 
     suspend fun getBookingHistory() : List<BookingDetails>
 
+    suspend fun removeBookedHotel(hotelName: String)
+
 }

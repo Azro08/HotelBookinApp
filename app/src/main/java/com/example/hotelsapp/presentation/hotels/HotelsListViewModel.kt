@@ -28,7 +28,7 @@ class HotelsListViewModel @Inject constructor(
     fun getHotelsList(
         cityName: String,
         checkIn: String,
-        checkOut: String
+        checkOut: String,
     ) = viewModelScope.launch {
         try {
             val regionId = regionIdRepository.getGeoId(cityName).data[0].gaiaId
@@ -44,7 +44,8 @@ class HotelsListViewModel @Inject constructor(
                         )
                     )
                 } catch (e: HttpException) {
-                    _hotelsList.value = ScreenState.Error(e.message.toString())
+                    if (e.message.toString() == "HTTP 422") _hotelsList.value = ScreenState.Error("Date has passed")
+                    else _hotelsList.value = ScreenState.Error(e.message.toString())
                 }
             } else {
                 _hotelsList.value = ScreenState.Error("Location not found")

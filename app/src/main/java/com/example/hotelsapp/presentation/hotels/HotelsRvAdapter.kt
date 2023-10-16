@@ -27,14 +27,14 @@ class HotelsRvAdapter(
                 .error(R.drawable.places)
                 .into(binding.imageViewHotel)
             binding.textViewHotelName.text = curHotel.name
-            val rating = curHotel.reviews.total
+            val rating = curHotel.reviews.score
             val textViewRatingText = "Rating: $rating/10"
-            if (rating != null) binding.textViewRating.text = textViewRatingText
+            binding.textViewRating.text = textViewRatingText
             val price = curHotel.price.displayMessages[0].lineItems[0].price?.priceTag
             val unknownPriceMsg = "-"
             if (price == null) binding.textViewPrice.text = unknownPriceMsg
             else binding.textViewPrice.text = price
-            if (curHotel.neighborhood.name != null) binding.textViewNeighborhood.text =
+            if (curHotel.neighborhood?.name != null) binding.textViewNeighborhood.text =
                 curHotel.neighborhood.name
             hotel = curHotel
         }

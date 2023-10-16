@@ -42,6 +42,10 @@ class HistoryViewModel
 
     }
 
+    fun refresh() {
+        getBookingHistory()
+    }
+
     fun removeBookedHotel(hotelName: String) = viewModelScope.launch {
         bookingRepository.removeBookedHotel(hotelName)
     }

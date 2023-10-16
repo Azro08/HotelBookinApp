@@ -12,5 +12,5 @@ data class BookingDetails(
     val adultNumber: Int = 0,
     val childrenNum: Int = 0,
     val paymentType: String = "",
-    val cardDetails : CardDetails
+    val cardDetails : CardDetails? = null
     )

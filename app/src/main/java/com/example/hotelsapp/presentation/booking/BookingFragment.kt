@@ -1,9 +1,12 @@
 package com.example.hotelsapp.presentation.booking
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +17,10 @@ import com.example.hotelsapp.databinding.FragmentBookingBinding
 import com.example.hotelsapp.helper.Constants
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -46,6 +53,37 @@ class BookingFragment : Fragment() {
                 .show()
         }
 
+        binding.imageButtonDateFrom.setOnClickListener {
+            showDatePickerDialog(binding.textViewCheckInDate)
+        }
+
+        binding.imageButtonDateTo.setOnClickListener {
+            showDatePickerDialog(binding.textViewCheckOutDate)
+        }
+
+    }
+
+    private fun showDatePickerDialog(textView: TextView) {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _: DatePicker, year: Int, month: Int, day: Int ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, month, day)
+                val formattedDate = formatDate(selectedDate.time)
+                textView.text = formattedDate
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        datePickerDialog.show()
+    }
+
+    private fun formatDate(date: Date): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        return sdf.format(date)
     }
 
     private fun bookHotel() = with(binding) {

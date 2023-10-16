@@ -28,7 +28,21 @@ class BookingRepositoryImpl
 
         return querySnapshot.documents.map { document ->
             document.toObject(BookingDetails::class.java)
-                ?: throw IllegalStateException("Error converting document to SingleHotelItem")
+                ?: throw IllegalStateException("Error converting document")
+        }
+    }
+
+    override suspend fun removeBookedHotel(hotelName: String) {
+        val userId = firebaseAuth.currentUser?.uid
+        val collection = firebaseFireStore.collection(Constants.BOOKING)
+        val querySnapshot: QuerySnapshot = collection
+            .whereEqualTo("userId", userId)
+            .whereEqualTo("hotelName", hotelName)
+            .get()
+            .await()
+
+        querySnapshot.documents.forEach { document ->
+            collection.document(document.id).delete()
         }
     }
 

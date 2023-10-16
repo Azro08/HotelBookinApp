@@ -9,7 +9,7 @@ data class Property(
     @SerializedName("name")
     val name: String,
     @SerializedName("neighborhood")
-    val neighborhood: Neighborhood,
+    val neighborhood: Neighborhood?,
     @SerializedName("price")
     val price: Price,
     @SerializedName("propertyImage")
