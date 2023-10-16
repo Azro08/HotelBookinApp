@@ -39,4 +39,6 @@
     <string name="expiry_date">Expiry Date</string>
     <string name="cvv">CVV</string>
     <string name="finish">finish</string>
+    <string name="cancel">CANCEL</string>
+    <string name="booking_history">Booking history</string>
 </resources>

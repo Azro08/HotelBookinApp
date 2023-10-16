@@ -25,8 +25,8 @@
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" >
         <action
-            android:id="@+id/action_navFavorite_to_hotelDetailsFragment"
-            app:destination="@id/nav_fav_to_details" />
+            android:id="@+id/nav_fav_to_details"
+            app:destination="@id/hotelDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navProfile"
@@ -40,10 +40,15 @@
         tools:layout="@layout/fragment_hotels" >
         <action
             android:id="@+id/nav_hotel_to_details"
-            app:destination="@id/nav_fav_to_details" />
+            app:destination="@id/hotelDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/nav_fav_to_details"
+        android:id="@+id/bookingFragment"
+        android:name="com.example.hotelsapp.presentation.booking.BookingFragment"
+        android:label="fragment_booking"
+        tools:layout="@layout/fragment_booking" />
+    <fragment
+        android:id="@+id/hotelDetailsFragment"
         android:name="com.example.hotelsapp.presentation.hotel_details.HotelDetailsFragment"
         android:label="fragment_hotel_details"
         tools:layout="@layout/fragment_hotel_details" >
@@ -51,9 +56,4 @@
             android:id="@+id/nav_details_to_book"
             app:destination="@id/bookingFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/bookingFragment"
-        android:name="com.example.hotelsapp.presentation.booking.BookingFragment"
-        android:label="fragment_booking"
-        tools:layout="@layout/fragment_booking" />
 </navigation>

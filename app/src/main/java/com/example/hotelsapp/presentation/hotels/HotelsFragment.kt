@@ -32,7 +32,9 @@ class HotelsFragment : Fragment() {
     private val binding get() = _binding!!
     private var rvAdapter: HotelsRvAdapter? = null
     private val viewModel: HotelsListViewModel by viewModels()
-
+    private var currentLocation : String? = null
+    private var checkInDate : String? = null
+    private var checkOutDate : String? = null
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
     override fun onCreateView(
@@ -44,13 +46,24 @@ class HotelsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val currentLocation = arguments?.getString(Constants.LOCATION_KEY)
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshFragment()
+        }
+        currentLocation = arguments?.getString(Constants.LOCATION_KEY)
         currentLocation?.let {
             binding.textViewCurLocation.text = currentLocation
         }
-        val checkInDate = arguments?.getString(Constants.CHECK_IN_DATE_KEY)
-        val checkOutDate = arguments?.getString(Constants.CHECK_OUT_DATE_KEY)
+        checkInDate = arguments?.getString(Constants.CHECK_IN_DATE_KEY)
+        checkOutDate = arguments?.getString(Constants.CHECK_OUT_DATE_KEY)
         viewModelOutputs(currentLocation!!, checkInDate!!, checkOutDate!!)
+    }
+
+    private fun refreshFragment() {
+        binding.loadingGif.visibility = View.VISIBLE
+        binding.recyclerViewHotels.visibility = View.GONE
+        binding.textViewError.visibility = View.GONE
+        viewModelOutputs(currentLocation!!, checkInDate!!, checkOutDate!!)
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     private fun viewModelOutputs(
@@ -65,7 +78,7 @@ class HotelsFragment : Fragment() {
                     checkInDate,
                     checkOutDate
                 )
-                responseHotels.collect {
+                hotelsList.collect {
                     processResponse(it)
                 }
             }
@@ -85,7 +98,10 @@ class HotelsFragment : Fragment() {
             }
 
             is ScreenState.Error -> {
-                Toast.makeText(requireContext(), screenState.message, Toast.LENGTH_LONG).show()
+                binding.loadingGif.visibility = View.GONE
+                binding.recyclerViewHotels.visibility = View.GONE
+                binding.textViewError.visibility = View.VISIBLE
+                binding.textViewError.text = screenState.message
             }
         }
     }
@@ -115,7 +131,7 @@ class HotelsFragment : Fragment() {
             neighborhood = neighborhood
         )
         Log.d("hotelItem", hotel.toString())
-        viewModel.addHotelToFavorite(hotel)
+        viewModel.addToFavorites(hotel)
     }
 
     private fun navToDetails(id: String, score: Double) {

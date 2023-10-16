@@ -1,6 +1,7 @@
 package com.example.hotelsapp.presentation.hotel_details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +53,7 @@ class HotelDetailsFragment : Fragment() {
                 getHotelDetailsById(
                     id
                 )
-                responseHotelDetails.collect {
+                hotelsDetails.collect {
                     processResponse(it)
                 }
             }
@@ -71,8 +72,12 @@ class HotelDetailsFragment : Fragment() {
             }
 
             is ScreenState.Error -> {
-                Toast.makeText(requireContext(), screenState.message, Toast.LENGTH_LONG).show()
+                binding.loadingDetailsGif.visibility = View.GONE
+                binding.layoutDetailsContainer.visibility = View.GONE
+                binding.textViewError.visibility = View.VISIBLE
+                binding.textViewError.text = screenState.message
             }
+
         }
     }
 
@@ -103,11 +108,15 @@ class HotelDetailsFragment : Fragment() {
         textHotelDetails.text = data.summary.location.whatsAround.editorial.content.toString()
         textPhoneNumber.text = data.summary.telesalesPhoneNumber
         textTagline.text = data.summary.tagline
-        ratingBar.rating = score.toFloat()
+        ratingBar.rating = (score/2).toFloat()
+        Log.d("score", score.toFloat().toString())
         val nearbyPOIs = getNearByPlaces(data.summary.nearbyPOIs.items)
         textWhatsAround.text = nearbyPOIs.toString()
         binding.buttonBookNow.setOnClickListener {
-            findNavController().navigate(R.id.nav_details_to_book, bundleOf(Pair(Constants.HOTEL_NAME_KEY, data.summary.name)))
+            findNavController().navigate(
+                R.id.nav_details_to_book,
+                bundleOf(Pair(Constants.HOTEL_NAME_KEY, data.summary.name))
+            )
         }
     }
 

@@ -1,60 +1,60 @@
 package com.example.hotelsapp.presentation.hotels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotelsapp.data.dto.hotel.HotelResponse
 import com.example.hotelsapp.data.dto.hotel.SingleHotelItem
 import com.example.hotelsapp.domain.repository.FavoriteHotelsRepository
-import com.example.hotelsapp.domain.repository.RegionIdRepository
 import com.example.hotelsapp.domain.repository.HotelsListRepository
+import com.example.hotelsapp.domain.repository.RegionIdRepository
 import com.example.hotelsapp.helper.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
 class HotelsListViewModel @Inject constructor(
-    private val repository: HotelsListRepository,
+    private val hotelsListRepository: HotelsListRepository,
     private val regionIdRepository: RegionIdRepository,
-    private val favRepository : FavoriteHotelsRepository
+    private val favoriteHotelsRepository: FavoriteHotelsRepository
 ) : ViewModel() {
 
-    val responseHotels: MutableStateFlow<ScreenState<HotelResponse?>> =
-        MutableStateFlow(ScreenState.Loading())
+    private val _hotelsList = MutableStateFlow<ScreenState<HotelResponse?>>(ScreenState.Loading())
+    val hotelsList: MutableStateFlow<ScreenState<HotelResponse?>> = _hotelsList
 
     fun getHotelsList(
         cityName: String,
         checkIn: String,
         checkOut: String
     ) = viewModelScope.launch {
-        val regionId = regionIdRepository.getGeoId(cityName).data[0].gaiaId
+        try {
+            val regionId = regionIdRepository.getGeoId(cityName).data[0].gaiaId
+            _hotelsList.value = ScreenState.Loading()
 
-        if  (regionId != null){
-            responseHotels.value = ScreenState.Loading()
-            repository.getHotelsList(regionId = regionId, checkIn = checkIn, checkOut = checkOut)
-                .let { response ->
-                    try {
-                        try {
-                            responseHotels.value = ScreenState.Success(response)
-                        } catch (e: Exception) {
-                            responseHotels.value = ScreenState.Error(e.message.toString())
-                            Log.d("httpError", e.cause?.message.toString())
-                        }
-
-                    } catch (e: UnknownHostException) {
-                        responseHotels.value = ScreenState.Error(e.message.toString())
-                    }
+            if (regionId != null) {
+                try {
+                    _hotelsList.value = ScreenState.Success(
+                        hotelsListRepository.getHotelsList(
+                            regionId,
+                            checkIn,
+                            checkOut
+                        )
+                    )
+                } catch (e: HttpException) {
+                    _hotelsList.value = ScreenState.Error(e.message.toString())
                 }
-        } else responseHotels.value = ScreenState.Error("Location not found")
-
+            } else {
+                _hotelsList.value = ScreenState.Error("Location not found")
+            }
+        } catch (e: UnknownHostException) {
+            _hotelsList.value = ScreenState.Error("Check your connection")
+        }
     }
 
-
-    fun addHotelToFavorite(hotel : SingleHotelItem) = viewModelScope.launch {
-        favRepository.saveHotelToFavorites(hotel)
+    fun addToFavorites(hotel: SingleHotelItem) = viewModelScope.launch {
+        favoriteHotelsRepository.saveHotelToFavorites(hotel)
     }
-
 }

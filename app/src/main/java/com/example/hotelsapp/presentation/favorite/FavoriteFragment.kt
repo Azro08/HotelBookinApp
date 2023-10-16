@@ -37,12 +37,15 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModelOutputs()
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshFragment()
+        }
     }
 
     private fun viewModelOutputs() = with(viewModel) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                responseHotels.collect {
+                hotelsList.collect {
                     processResponse(it)
                 }
             }
@@ -61,9 +64,24 @@ class FavoriteFragment : Fragment() {
             }
 
             is ScreenState.Error -> {
-                Toast.makeText(requireContext(), screenState.message, Toast.LENGTH_LONG).show()
+                handleError(screenState.message)
             }
         }
+    }
+
+    private fun handleError(message: String?) {
+        binding.loadingGif.visibility = View.GONE
+        binding.rvFavoriteHotels.visibility = View.GONE
+        binding.textViewError.visibility = View.VISIBLE
+        binding.textViewError.text = message!!
+    }
+
+    private fun refreshFragment() {
+        binding.loadingGif.visibility = View.VISIBLE
+        binding.rvFavoriteHotels.visibility = View.GONE
+        binding.textViewError.visibility = View.GONE
+        viewModelOutputs()
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     private fun displayHotels(hotelItems: List<SingleHotelItem>) {

@@ -8,6 +8,7 @@ import com.example.hotelsapp.helper.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -16,27 +17,26 @@ class HotelDetailsViewModel @Inject constructor(
     private val repository: HotelDetailsRepository
 ) : ViewModel() {
 
-    val responseHotelDetails: MutableStateFlow<ScreenState<HotelDetailsResponse?>> =
-        MutableStateFlow(ScreenState.Loading())
+    private val _hotelsDetails =
+        MutableStateFlow<ScreenState<HotelDetailsResponse?>>(ScreenState.Loading())
+    val hotelsDetails: MutableStateFlow<ScreenState<HotelDetailsResponse?>> = _hotelsDetails
 
-    fun getHotelDetailsById(hotelId:String) = viewModelScope.launch {
-
-        repository.getHotelDetailsById(hotelId).let {response ->
-            responseHotelDetails.value = ScreenState.Loading()
+    fun getHotelDetailsById(hotelId: String) = viewModelScope.launch {
+        _hotelsDetails.value = ScreenState.Loading()
+        try {
             try {
-
-                try {
-                    responseHotelDetails.value = ScreenState.Success(response)
-                } catch (e : Exception){
-                    responseHotelDetails.value = ScreenState.Error(e.message.toString())
+                repository.getHotelDetailsById(hotelId).let { response ->
+                    _hotelsDetails.value = ScreenState.Success(response)
                 }
-
-            } catch (e : UnknownHostException){
-                responseHotelDetails.value = ScreenState.Error(e.message.toString())
+            } catch (e: HttpException) {
+                _hotelsDetails.value = ScreenState.Error(e.message.toString())
             }
 
+        } catch (e: UnknownHostException) {
+            _hotelsDetails.value = ScreenState.Error(e.message.toString())
         }
 
     }
+
 
 }

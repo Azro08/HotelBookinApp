@@ -12,8 +12,6 @@ data class SummaryDetailsResponseSummary(
     val name: String,
     @SerializedName("nearbyPOIs")
     val nearbyPOIs: NearbyPOIs,
-    @SerializedName("spaceOverview")
-    val spaceOverview: Any?,
     @SerializedName("tagline")
     val tagline: String,
     @SerializedName("telesalesPhoneNumber")

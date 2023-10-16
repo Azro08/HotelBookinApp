@@ -54,8 +54,8 @@ class BookingFragment : Fragment() {
         val lastName = editTextLastName.text.toString()
         val email = editTextEmail.text.toString()
         val phoneNumber = editTextPhoneNumber.text.toString()
-        val checkInDate = editTextCheckInDate.text.toString()
-        val checkOutDate = editTextCheckOutDate.text.toString()
+        val checkInDate = textViewCheckInDate.text.toString()
+        val checkOutDate = textViewCheckOutDate.text.toString()
         val adultsNumber = editTextAdultsNumber.text.toString().toIntOrNull() ?: 0
         val childrenNumber = editTextChildrenNumber.text.toString().toIntOrNull() ?: 0
         val paymentType = getPaymentType()
@@ -91,8 +91,8 @@ class BookingFragment : Fragment() {
                 editTextChildrenNumber.text.isNotEmpty() &&
                 editTextPhoneNumber.text.isNotEmpty() &&
                 editTextEmail.text.isNotEmpty() &&
-                editTextCheckInDate.text.isNotEmpty() &&
-                editTextCheckOutDate.text.isNotEmpty() &&
+                textViewCheckOutDate.text.isNotEmpty() &&
+                textViewCheckOutDate.text.isNotEmpty() &&
                 (!radioButtonCreditCard.isChecked ||
                         (editTextCardNumber.text.isNotEmpty() &&
                                 editTextExpiryDate.text.isNotEmpty() &&

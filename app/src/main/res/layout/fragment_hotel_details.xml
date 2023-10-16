@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.hotel_details.HotelDetailsFragment">
 
     <pl.droidsonroids.gif.GifImageView
@@ -12,6 +11,17 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:background="@drawable/loading_gif"/>
+
+    <TextView
+        android:id="@+id/textViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:fontFamily="cursive"
+        android:visibility="gone"
+        android:textSize="28sp"
+        android:layout_gravity="center"
+        tools:text="Error" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -79,7 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
-                tools:rating="4.5"
+                tools:rating="4"
+                android:clickable="false"
                 android:layout_marginTop="8dp" />
 
             <!-- What's Around -->
